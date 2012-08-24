@@ -1,0 +1,62 @@
+Files of interest
+
+class-wc-cart.php line 407
+cart.php line 37
+woocommerce-functions.php line 144
+
+Plan of attack:  
+
+Add link to class-wc-cart.php line 407, allows user to click to remove option
+
+Add to update_cart function in woocommerce-functions.php ~~~ line 144 a check to remove option.  
+
+If possible, update the product to only have all variations accept the one that was removed.  
+
+psuedo:
+
+class-wc-cart.php:
+
+  $cart_page_id = woocommerce_get_page_id('cart');
+
+  woocommerce->nonce_url( 
+   'cart', 
+   add_query_arg( 'remove_option', 
+     $option_item_key, 
+     get_permalink($cart_page_id) 
+  )
+  
+woocommerce-functions.php
+
+(in add_to_cart_function) 
+
+  check nonce
+  check GET
+  if(GET 'action' matches 'remove_option')
+    GET option_id
+    GET item_id
+    
+    
+
+Plan of attack 2:
+
+Add a function in the wc-cart class, to remove a given option.  
+
+function remove_cart_data( cart item, option to remove ) {
+	
+	other data = apply_filters('woocommerce_get_item_data', array(), cart item)
+	
+	if( other data is empty )
+		return
+	
+	foreach( other data as data )
+		if( data is option to remove ) 
+			remove from array
+	
+	save array
+	
+}
+
+
+changes made:
+
+cart.php - cart.070912.php
