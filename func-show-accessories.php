@@ -13,7 +13,7 @@ function jm_show_accessories()
 	{
 		?>
 		<div class="upsells products" style="margin:0 0 1em 0;">
-			<h2><?php _e('Customize', 'woocommerce') ?></h2>
+			<h2><?php _e('Options', 'woocommerce') ?></h2>
 			<?php
 			$args = array(
 				'post_type'	=> 'product',
